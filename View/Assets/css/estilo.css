@@ -1,0 +1,9 @@
+.we-comment {
+    border-radius: 10px;
+    border: 1px solid #088dcd;
+}
+
+.we-comment::after,
+.peoples-mesg-box > ul > li p:after {
+    border-right: 9px solid #088dcd;
+}
