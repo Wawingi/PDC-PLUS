@@ -91,8 +91,8 @@ require_once '../../Controller/Autenticacao.php';
                                                 <div class="tab-content">
                                                     <div class="tab-pane active fade show " id="frends" >                                                        
                                                         <?php
-                                                            $amizade = new AmizadeModel();
-                                                            foreach ($amizade->findAmigos($_SESSION['agente']->id) as $valor):
+
+                                                            foreach (AmizadeModel::findAmigos($_SESSION['agente']->id) as $valor):
                                                         ?>
                                                         <ul class="nearby-contct">
                                                             <li>
@@ -138,7 +138,7 @@ require_once '../../Controller/Autenticacao.php';
                                                             <li>
                                                                 <div class="nearly-pepls">
                                                                     <figure>
-                                                                        <a href="#" title=""><img src="../Assets/images/resources/friend-avatar9.jpg" alt=""></a>
+                                                                        <a href="#" title=""><img src="../Assets/images/upload/<?php echo $valor->foto ?>" alt=""></a>
                                                                     </figure>
                                                                     <div class="pepl-info">
                                                        

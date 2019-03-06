@@ -88,11 +88,12 @@ require_once '../../Controller/Autenticacao.php';
                                                 <!-- Listagem dos amigos pesquisados -->
                                                 <div class="tab-content">
                                                     <div class="tab-pane active fade show " id="frends" >                                                        
-                                                        <?php
-                                                            $amizade = new AmizadeModel();
-                                                            foreach ($amizade->findPedidosAmizade($_SESSION['agente']->id) as $valor):
-                                                        ?>
+                                                        
                                                                 <ul class="nearby-contct">
+                                                                    <?php
+                                                                        //$amizade = new AmizadeModel();
+                                                                        foreach (AmizadeModel::findPedidosAmizade($_SESSION['agente']->id) as $valor):
+                                                                    ?>
                                                                     <li>
                                                                         <div class="nearly-pepls">
                                                                             <figure>
@@ -106,8 +107,9 @@ require_once '../../Controller/Autenticacao.php';
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </li>
+                                                                    <?php endforeach; ?>                                                                   
                                                                 </ul>
-                                                        <?php endforeach; ?>
+
                                                         <div class="lodmore"><button class="btn-view btn-load-more"></button></div>
                                                     </div>
                                                 </div>
@@ -120,7 +122,7 @@ require_once '../../Controller/Autenticacao.php';
                                     <div class="col-lg-3">
                                         <aside class="sidebar static">
                                             <?php
-                                            require_once '../includes/amigos.php';
+                                                require_once '../includes/amigos.php';
                                             ?>
                                         </aside>
                                     </div>

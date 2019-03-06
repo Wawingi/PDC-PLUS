@@ -23,6 +23,7 @@ function __autoload($class_nome) {
     <body>
         <?php
             require_once '../../Controller/PublicacaoController.php';
+            require_once '../../Controller/AgenteController.php';
         ?>
 
         <!--<div class="se-pre-con"></div>-->
@@ -92,14 +93,20 @@ function __autoload($class_nome) {
                                                                        
                                                                         <h4><a href="#" title=""><?php echo $valor->nome ?></a></h4>
                                                                         <span><?php echo $valor->cidade ?></span>
-                                                                        <?php echo "<a href='../perfil/?acao=".'verPerfil'."&id=".$valor->id."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; ?>
+                                                                        <?php 
+                                                                            if($valor->tipo=='Individual'){
+                                                                                echo "<a href='../perfil/?acao=".'verPerfil'."&id=".$valor->id."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
+                                                                            } else {
+                                                                                echo "<a href='../loja/?acao=".'verPerfil'."&id=".$valor->id."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
+                                                                            }
+                                                                        ?>
                                                                         <?php 
                                                                             $amizade = new AmizadeModel();
                                                                             $pegaEstado=$amizade->all(array('conditions' => array('idagente1 = ? AND idagente2 = ?',$_SESSION['agente']->id , $valor->id)));
                                                                             if($pegaEstado){ 
                                                                                echo "<a style='background-color: red' href='pesquisarAmigo.php?acao=".'cancelarAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."' title='' class='add-butn' data-ripple=''>Cancelar</a>";
                                                                             } else {
-                                                                               echo "<a href='pesquisarAmigo.php?acao=".'addAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."' title='' class='add-butn' data-ripple=''>Adicionar</a>";
+                                                                               echo "<a href='pesquisarAmigo.php?acao=".'addAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."&tipo=".$valor->tipo. "' title='' class='add-butn' data-ripple=''>Adicionar</a>";
                                                                             }
                                                                         ?>
                                                                     </div>

@@ -19,7 +19,10 @@ if($op == 'comentar'){
       $chat->estado='Nao lido';
       $chat->id_agente1=$id_agente1;
       $chat->id_agente2=$id_agente2;
-      $chat->save();
+      
+      if($chat->save()){
+         //header("Location:../../View/mensagem/chat.php");  
+      }
   }else {
     echo "ERORRRRRRR";
   }

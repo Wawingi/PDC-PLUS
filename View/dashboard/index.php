@@ -176,9 +176,6 @@ function __autoload($class_nome) {
                                                                     </li>
                                                                 <?php endforeach; ?>
 
-                                                                <li>
-                                                                    <a href="time-line.html#" title="" class="showmore underline">mais comentario</a>
-                                                                </li>
                                                                 <li class="post-comment">
                                                                     <div class="comet-avatar">
                                                                         <img src="images/resources/comet-1.jpg" alt="">
@@ -188,7 +185,7 @@ function __autoload($class_nome) {
                                                                         <form method="post" >
                                                                             <textarea placeholder="Comentar" required="" name="conteudo_comentario"></textarea>
                                                                             <div class="add-smiles">
-                                                                                <button href="?operacao=comentar" ><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>
+                                                                                <button href="?operacao=comentar" style="color: blue; bottom: -8px" type="submit" name="registar" class="fa fa-send"/>                                                                                
                                                                                 <input type="hidden" value="comentar" name="operacao">
                                                                                 <input type="hidden" value="<?php echo $_SESSION['agente']->id; ?>" name="id_agente">
                                                                                 <input type="hidden" value="<?php echo $valor->id_publicacao; ?>" name="id_publicacao">

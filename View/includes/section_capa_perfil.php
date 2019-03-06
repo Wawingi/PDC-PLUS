@@ -44,7 +44,11 @@
                 </div>
                 <!-- Inicio menubar do perfil -->
                 <?php
-                require_once '../includes/menubarPerfil.php';
+                    if($_SESSION['agente']->tipo=='Individual'){
+                        require_once '../includes/menubarPerfil.php';
+                    }else{
+                        require_once '../includes/menubarPerfilLoja.php';
+                    }
                 ?>
                 <!-- Inicio menubar do perfil -->
             </div>
@@ -79,7 +83,12 @@
                 </div>
                 <!-- Inicio menubar do perfil -->
                 <?php
-                require_once '../includes/menubarPerfil.php';
+                    $tipo= filter_input(INPUT_GET, 'tipo');
+                    if($tipo=='Individual'){
+                        require_once '../includes/menubarPerfil.php';
+                    }else{
+                        require_once '../includes/menubarPerfilLoja.php';
+                    }
                 ?>
                 <!-- Inicio menubar do perfil -->
             </div>

@@ -23,7 +23,7 @@ function __autoload($class_nome) {
     </head>
     <body>
         <?php
-        require_once '../../Controller/ChatController.php';
+            require_once '../../Controller/ChatController.php';
         ?>
 
         <!--<div class="se-pre-con"></div>-->
@@ -71,26 +71,36 @@ function __autoload($class_nome) {
                                                                 <?php
                                                                     $nomeamigo=filter_input(INPUT_GET, 'nome');
                                                                     $fotoamigo=filter_input(INPUT_GET, 'foto');
-                                                                                                                                                                                                    
-                                                                    $chat= new ChatModel();
-                                                                    foreach ($chat->chatAmigos(21,24) as $dado):
-                                                                    
+                                                                    $idamigo2=filter_input(INPUT_GET, 'id');
+                                                                                              
+                                                                    foreach (ChatModel::chatAmigos($_SESSION['agente']->id,$idamigo2) as $dado):
                                                                 ?>
                                                                     <li>
+                                                                        <?php if($dado->idagente==$_SESSION['agente']->id){ ?>
                                                                         <div class="comet-avatar">
-                                                                            <img src="../Assets/images/upload/<?php if($dado->idagente==$_SESSION['agente']->id){ echo $_SESSION['agente']->foto;}else{echo $fotoamigo;} ?>"  style="height:50px; width:50px;" alt="">
+                                                                            <img src="../Assets/images/upload/<?php echo $_SESSION['agente']->foto; ?>"  style="height:50px; width:50px;" alt="">
                                                                         </div>
-                                                                        <div class="we-comment">
+                                                                        <div class="we-comment" style="background-color: #e4f1f7">
                                                                             <div class="coment-head" >
-                                                                                <h5><a href="time-line.html" title=""><?php if($dado->idagente==$_SESSION['agente']->id){ echo $_SESSION['agente']->nome;}else{echo $nomeamigo;} ?></a></h5>
+                                                                                <h5><a href="time-line.html" title=""><?php echo $_SESSION['agente']->nome; ?></a></h5>
                                                                                 <span><?php echo $dado->data; ?></span>        
                                                                             </div>
-                                                                            <p><?php echo $dado->conteudo; ?></p>
+                                                                            <p style="color: black"><?php echo $dado->conteudo; ?></p>
                                                                         </div>
+                                                                        <?php }else{ ?>
+                                                                        <div class="comet-avatar">
+                                                                            <img src="../Assets/images/upload/<?php echo $fotoamigo; ?>"  style="height:50px; width:50px;" alt="">
+                                                                        </div>
+                                                                        <div class="we-comment" style="background-color: #f9f9c1">
+                                                                            <div class="coment-head" >
+                                                                                <h5><a href="time-line.html" title=""><?php echo $nomeamigo; ?></a></h5>
+                                                                                <span><?php echo $dado->data; ?></span>        
+                                                                            </div>
+                                                                            <p style="color: black"><?php echo $dado->conteudo; ?></p>
+                                                                        </div>                                                                                                                                              
+                                                                        <?php } ?>
                                                                     </li>
                                                                 <?php endforeach; ?>
-
-
                                                                 <li class="post-comment">
                                                                     <div class="comet-avatar">
                                                                         <img src="images/resources/comet-1.jpg" alt="">
@@ -100,7 +110,8 @@ function __autoload($class_nome) {
                                                                         <form method="post" >
                                                                             <textarea placeholder="escreva a tua mensagem..." required="" name="mensagem"></textarea>
                                                                             <div class="add-smiles">
-                                                                                <button><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>
+                                                                                <!--<button><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>-->
+                                                                                <button style="color: blue; bottom: -5px" type="submit" name="registar" class="fa fa-send"/>
                                                                                 <input type="hidden" value="comentar" name="operacao">
                                                                                 <input type="hidden" value="<?php echo $_SESSION['agente']->id; ?>" name="id_agente1">
                                                                                 <input type="hidden" value="<?php echo filter_input(INPUT_GET, "id"); ?>" name="id_agente2">

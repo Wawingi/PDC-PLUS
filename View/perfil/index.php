@@ -51,7 +51,7 @@ require_once '../../Controller/Autenticacao.php';
 
             <!-- inicio do menubar -->
             <?php
-            require_once '../includes/menubar.php';
+                require_once '../includes/menubar.php';
             ?>
             <!-- FIM do menubar -->    
 
@@ -67,7 +67,7 @@ require_once '../../Controller/Autenticacao.php';
                                         <aside class="sidebar static">
                                             <!-- Inicio do Sidebar -->
                                             <?php
-                                            require_once '../includes/sidebar.php';
+                                                require_once '../includes/sidebar.php';
                                             ?>
                                             <!-- Fim do Sidebar -->
 
@@ -169,55 +169,50 @@ require_once '../../Controller/Autenticacao.php';
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="coment-area">
-                                                            <ul class="we-comet">
-                                                                <?php
-                                                                $publicacao = new PublicacaoModel();
-                                                                foreach ($publicacao->comentariosPublicacao($valor->id) as $dado):
+                                                        
+                                                            <div class="coment-area">
+                                                                
+                                                                <ul class="we-comet">
+                                                                    <?php
+                                                                        $publicacao = new PublicacaoModel();
+                                                                        foreach ($publicacao->comentariosPublicacao($valor->id) as $dado):
                                                                     ?>
-                                                                    <li>
-                                                                        <div class="comet-avatar">
-                                                                            <img src="../Assets/images/upload/<?php echo $dado->foto; ?>"  style="height:50px; width:50px;" alt="">
-                                                                        </div>
-                                                                        <div class="we-comment">
-                                                                            <div class="coment-head">
-                                                                                <h5><a href="time-line.html" title=""><?php echo $dado->nome; ?></a></h5>
-                                                                                <span><?php echo $dado->data; ?></span>
-                                                                              
+                                                                        <li>
+                                                                            <div class="comet-avatar">
+                                                                                <img src="../Assets/images/upload/<?php echo $dado->foto; ?>"  style="height:50px; width:50px;" alt="">
                                                                             </div>
-                                                                            <p><?php echo $dado->conteudo; ?>
+                                                                            <div class="we-comment">
+                                                                                <div class="coment-head">
+                                                                                    <h5><a href="time-line.html" title=""><?php echo $dado->nome; ?></a></h5>
+                                                                                    <span><?php echo $dado->data; ?></span>
 
-                                                                            </p>
+                                                                                </div>
+                                                                                <p><?php echo $dado->conteudo; ?>
+
+                                                                                </p>
+                                                                            </div>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                    
+                                                                    <li class="post-comment">
+                                                                        <div class="comet-avatar">
+                                                                            <img src="images/resources/comet-1.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="post-comt-box">
+
+                                                                            <form method="post" >
+                                                                                <textarea placeholder="Comentar" required="" name="conteudo_comentario"></textarea>
+                                                                                <div class="add-smiles">
+                                                                                    <button href="?operacao=comentar" ><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>
+                                                                                    <input type="hidden" value="comentar" name="operacao">
+                                                                                    <input type="hidden" value="<?php echo $_SESSION['agente']->id; ?>" name="id_agente">
+                                                                                    <input type="hidden" value="<?php echo $valor->id_publicacao; ?>" name="id_publicacao">
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </li>
-                                                                <?php endforeach; ?>
-
-                                                                <li>
-                                                                    <a href="time-line.html#" title="" class="showmore underline">mais comentario</a>
-                                                                </li>
-                                                                <li class="post-comment">
-                                                                    <div class="comet-avatar">
-                                                                        <img src="images/resources/comet-1.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="post-comt-box">
-
-                                                                        <form method="post" >
-                                                                            <textarea placeholder="Comentar" required="" name="conteudo_comentario"></textarea>
-                                                                            <div class="add-smiles">
-                                                                                <button href="?operacao=comentar" ><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>
-                                                                                <input type="hidden" value="comentar" name="operacao">
-                                                                                <input type="hidden" value="<?php echo $_SESSION['agente']->id; ?>" name="id_agente">
-                                                                                <input type="hidden" value="<?php echo $valor->id_publicacao; ?>" name="id_publicacao">
-
-
-                                                                            </div>
-                                                                        </form>
-
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                                </ul>
+                                                            </div>
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>
@@ -340,9 +335,7 @@ require_once '../../Controller/Autenticacao.php';
                                                                     </li>
                                                                 <?php endforeach; ?>
 
-                                                                <li>
-                                                                    <a href="time-line.html#" title="" class="showmore underline">mais comentario</a>
-                                                                </li>
+                                                                
                                                                 <li class="post-comment">
                                                                     <div class="comet-avatar">
                                                                         <img src="images/resources/comet-1.jpg" alt="">
@@ -389,8 +382,6 @@ require_once '../../Controller/Autenticacao.php';
                     </div>
                 </div>
             </section>
-
-
             <div class="bottombar">
                 <div class="container">
                     <div class="row">

@@ -1,9 +1,23 @@
 .we-comment {
     border-radius: 10px;
     border: 1px solid #088dcd;
+    background-color: #e4f1f7;
 }
 
 .we-comment::after,
 .peoples-mesg-box > ul > li p:after {
-    border-right: 9px solid #088dcd;
+    
+}
+
+.photos {
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.photos > li {
+    display: inline-block;
+    min-width: 25.3%;
+    width: 20.3%;
+    margin: 0 1.3px;
 }

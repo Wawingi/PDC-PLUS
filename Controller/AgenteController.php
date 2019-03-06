@@ -63,7 +63,7 @@ if ($op == 'logar') {
 
             if ($pegaAgente->tipo == 'Individual') {
                 header("Location: ../../View/dashboard/");
-            } elseif ($pegaAgente->tipo == 'Organizaci') {
+            } elseif ($pegaAgente->tipo == 'Organizacional') {
                 header("Location: ../../View/loja/");
             }
         } else {
@@ -88,6 +88,7 @@ if($op == 'pesquisar'){
     $op = filter_input(INPUT_GET, 'acao');
     $idAgente1 = htmlentities(filter_input(INPUT_GET, 'idAgente1'));
     $idAgente2 = htmlentities(filter_input(INPUT_GET, 'idAgente2'));
+    $tipo = htmlentities(filter_input(INPUT_GET, 'tipo'));
     $amizade = new AmizadeModel();
     if($op=='verPerfil'){
         $agentePesquisado = $agente->findAgente($id);
@@ -96,12 +97,17 @@ if($op == 'pesquisar'){
               
         $amizade->idagente1=$idAgente1;
         $amizade->idagente2=$idAgente2;
-        $amizade->estado='pendente';
-        
+        if($tipo=='Individual'){
+            $amizade->estado='pendente';
+        } else {
+            $amizade->estado='amigos';
+        }
         if(empty($idAgente1)&&empty($idAgente2)){
             
         } else {
-            $amizade->save();
+            if($amizade->save()){
+                header("Location: ../../View/dashboard/");
+            }
         }        
     }
     if($op=='cancelarAmigo'){
