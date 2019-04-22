@@ -66,7 +66,7 @@ require_once '../../Controller/Autenticacao.php';
                                         <aside class="sidebar static">
                                             <!-- Inicio do Sidebar -->
                                             <?php
-                                            require_once '../includes/sidebar.php';
+                                                require_once '../includes/sidebar.php';
                                             ?>
                                             <!-- Fim do Sidebar -->
                                             <!-- Inicio do Sidebar Editar -->
@@ -90,8 +90,7 @@ require_once '../../Controller/Autenticacao.php';
                                                     <div class="tab-pane active fade show " id="frends" >                                                        
                                                         
                                                                 <ul class="nearby-contct">
-                                                                    <?php
-                                                                        //$amizade = new AmizadeModel();
+                                                                    <?php              
                                                                         foreach (AmizadeModel::findPedidosAmizade($_SESSION['agente']->id) as $valor):
                                                                     ?>
                                                                     <li>
@@ -102,8 +101,8 @@ require_once '../../Controller/Autenticacao.php';
                                                                             <div class="pepl-info">
                                                                                 <h4><a href="#" title=""><?php echo $valor->nome ?></a></h4>
                                                                                 <span><?php echo $valor->nome ?></span>
-                                                                                <?php echo "<a href='pedidosAmizade.php?acao=".'aceitarAmigo'."&idAgente1=".$valor->id."&idAgente2=".$_SESSION['agente']->id."' title='' class='add-butn more-action' data-ripple=''>Aceitar</a>"; ?>
-                                                                                <?php echo "<a style='background-color: red' href='pedidosAmizade.php?acao=".'cancelarAmigo'."&idAgente1=".$valor->id."&idAgente2=".$_SESSION['agente']->id."' title='' class='add-butn' data-ripple=''>Cancelar</a>"; ?>
+                                                                                <?php echo "<a href='pedidosAmizade.php?acao=".'aceitarAmigo'."&idAgente1=".base64_encode($valor->id)."&idAgente2=".base64_encode($_SESSION['agente']->id)."' title='' class='add-butn more-action' data-ripple=''>Aceitar</a>"; ?>
+                                                                                <?php echo "<a style='background-color: red' href='pedidosAmizade.php?acao=".'cancelarAmigo'."&idAgente1=".base64_encode($valor->id)."&idAgente2=".base64_encode($_SESSION['agente']->id)."' title='' class='add-butn' data-ripple=''>Cancelar</a>"; ?>
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </li>

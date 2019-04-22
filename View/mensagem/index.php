@@ -78,7 +78,7 @@ function __autoload($class_nome) {
                                                             <li>
                                                                 <div class="nearly-pepls">
                                                                     <figure>
-                                                                       <?php echo "<a href='chat.php?acao=".'pegaId'."&id=".$valor->id_agente."&nome=".$valor->nome."&foto=".$valor->foto."' title=''><img src='../Assets/images/upload/$valor->foto' alt=''></a>" ?>
+                                                                       <?php echo "<a href='chat.php?acao=".'pegaId'."&id=".base64_encode($valor->id_agente)."&nome=".$valor->nome."&foto=".$valor->foto."' title=''><img src='../Assets/images/upload/$valor->foto' alt=''></a>" ?>
                                                                     </figure>
                                                                     <div class="pepl-info">
                                                                        

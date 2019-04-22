@@ -6,7 +6,7 @@ require_once '../../Model/PublicacaoModel.php';
 try {
     session_start();
 if ((isset($_POST["foto_perfil"])) && (! empty($_FILES['foto_perfil']))){
-    $upload = new UploadModel($_FILES['foto_perfil'], 900, 900, "../Assets/images/upload/");
+        $upload = new UploadModel($_FILES['foto_perfil'], 900, 900, "../Assets/images/upload/");
         $nome_arquivo= $upload->salvar();
         if ($nome_arquivo=="Formato Invalido"||$nome_arquivo=="Erro 0") {
           echo " erro do formato";
@@ -30,13 +30,19 @@ if ((isset($_POST["foto_perfil"])) && (! empty($_FILES['foto_perfil']))){
         $multimedia->conteudo = $nome_arquivo;
         $multimedia->id_publicacao = $publicacao->id;
         $multimedia->save();
-        header("Location: TerminarSessao.php");}
+        
+        session_destroy();
+
+        $sucesso='A sua foto foi alterada com sucesso, por motivos de segurança faça login novamente.';
+        header("Location:../inicio/?info1=".base64_encode($sucesso));
+       
+    }
 }
 //Na tabela agente tem de se adicionar o campo foto de capa
 if ((isset($_POST["foto_capa"])) && (! empty($_FILES['foto_capa']))){
     $upload = new UploadModel($_FILES['foto_capa'], 434, 1280, "../Assets/images/upload/");
         $nome_arquivoCapa= $upload->salvar();
-        if ($nome_arquivoCapa=="Erro 0") {
+      if ($nome_arquivoCapa=="Erro 0") {
         echo "Erro 0";
       } elseif ($nome_arquivoCapa=="Tamanho excede o permitido") {
         echo "Tamanho excede o permitido";
@@ -60,7 +66,12 @@ if ((isset($_POST["foto_capa"])) && (! empty($_FILES['foto_capa']))){
         $multimedia->conteudo = $nome_arquivoCapa;
         $multimedia->id_publicacao = $publicacao->id;
         $multimedia->save();
-        header("Location: TerminarSessao.php");
+        
+        session_destroy();
+
+        $sucesso='A sua foto de capa foi alterada com sucesso, por motivos de segurança faça login novamente.';
+        header("Location:../inicio/?info1=".base64_encode($sucesso));
+       
 }}
 
 

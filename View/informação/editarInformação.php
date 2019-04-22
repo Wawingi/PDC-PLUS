@@ -23,7 +23,7 @@ function __autoload($class_nome) {
     <body>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
-
+            <?php require_once '../../Controller/TrocainformacaoController.php'; ?>
             <div class="responsive-header">
                 <div class="mh-head first Sticky">
                     <span class="mh-btns-left">
@@ -120,10 +120,7 @@ function __autoload($class_nome) {
             <section>
                 <div class="feature-photo">
                     <figure><img src="../Assets/images/resources/timeline-1.jpg" alt=""></figure>
-                    <div class="add-btn">
-                        <span>1205 Amigos</span>
-                        <a href="time-line.html#" title="" data-ripple="">Adicionar amigo</a>
-                    </div>
+                   
                     <form class="edit-phto">
                         <i class="fa fa-camera-retro"></i>
                         <label class="fileContainer">
@@ -186,18 +183,18 @@ function __autoload($class_nome) {
 
                                                 <form method="post">
                                                     <div class="form-group">	
-                                                        <input type="text" id="input" required="required"/>
+                                                        <input type="text" name="nome" id="input" value="<?php echo $contacto->nome; ?>" required="required"/>
                                                         <label class="control-label" for="input">Nome</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="text" required="required"/>
+                                                        <input type="text" name="username" value="<?php echo $contacto->username; ?>" required="required"/>
                                                         <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="date" required="required"/>
+                                                        <input type="date" name="datanascimento" value="<?php echo $contacto->datanascimento; ?>" required="required"/>
                                                         <label class="control-label" for="input">Data de Nascimento</label><i class="mtrl-select"></i>
                                                     </div>
-                                                    
+
                                                     <div class="form-radio">
                                                         <div class="radio">
                                                             <label>
@@ -210,12 +207,13 @@ function __autoload($class_nome) {
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    
+                                                    <input type="hidden" name="operacao" value="alterar_informacao" required="required"/>
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
+                                                
                                             </div>
                                         </div>	
                                     </div>

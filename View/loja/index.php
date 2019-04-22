@@ -61,6 +61,19 @@ function __autoload($class_nome) {
             <section>
                 <div class="gap gray-bg">
                     <?php
+                        $info = filter_input(INPUT_GET,'info');                                                       
+                        if($info!=null){
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Alerta!</strong> Produto Adicionado com suceso.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php } ?>                
+                                        
+                    
+                    <?php
                         if (empty(filter_input(INPUT_GET, "id"))){
                     ?>
                         <div class="row">
@@ -94,7 +107,16 @@ function __autoload($class_nome) {
                                     <!-- Simple card -->
                                     <div style="background-color: #f4f2f2" class="central-meta">
                                         <ul class="photos" style="width: 80.3%;margin-left: 100px">
+                                            
                                             <?php
+                                                if (empty(filter_input(INPUT_GET, "id"))) {
+                                                    $id_Ag = $_SESSION['agente']->id;
+                                                } else {
+                                                    $id_Ag = $agentePesquisado[0]->id;
+                                                }
+                                                $url = "http://localhost:8080/Largacaixa/webresources/produto/Produto/pegar/" . $id_Ag;
+                                                $json = file_get_contents($url);
+                                                $produtos = json_decode($json);
                                                 foreach ($produtos as $produto):
                                             ?>
                                             <li>
@@ -113,8 +135,7 @@ function __autoload($class_nome) {
                                             <?php endforeach; ?>                                                                                   
                                             
                                         </ul>
-                                        <div class="lodmore"><button class="btn-view btn-load-more"></button></div>
-                                        
+                                        <div class="lodmore"><button class="btn-view btn-load-more"></button></div>      
                                     </div>
                                                                  
                                     <!-- Fim Dos dados do Agente -->

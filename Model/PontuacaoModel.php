@@ -1,55 +1,27 @@
 <?php
 
-class PontuacaoModel extends Crud {
+require_once $_SERVER['DOCUMENT_ROOT'] . '/PDC_PLUS/system/configuracao.php';
 
-    protected $tabela = 'pontuacao';
-    private $id_Pontuacao;
-    private $conteudo;
-    private $id_Agente;
-    private $id_Publicacao;
-    function getId_Pontuacao() {
-        return $this->id_Pontuacao;
-    }
+class PontuacaoModel extends ActiveRecord\Model {
 
-    function getConteudo() {
-        return $this->conteudo;
+    static $table_name = 'pontuacao';  
+    
+    //Função que permite verificar se o agente ja deu um gosto
+    public function verificaGosto($id_publicacao,$id_Agente) {
+        $sql = "SELECT count(*)'cont'
+                FROM pontuacao
+                WHERE id_publicacao =:id_publicacao AND id_Agente =:id_Agente";
+        return PublicacaoModel::find_by_sql($sql, ['id_publicacao' => $id_publicacao,'id_Agente' =>$id_Agente]);
     }
-
-    function getId_Agente() {
-        return $this->id_Agente;
+    
+    //Função que permite efectuar gosto de uma publucação
+    public function contGosto($id_publicacao) {
+        $sql = "SELECT count(*)'cont'
+                FROM pontuacao
+                WHERE conteudo='gosto' AND id_publicacao =:id_publicacao";
+        return PublicacaoModel::find_by_sql($sql, ['id_publicacao' => $id_publicacao]);
     }
-
-    function getId_Publicacao() {
-        return $this->id_Publicacao;
-    }
-
-    function setId_Pontuacao($id_Pontuacao) {
-        $this->id_Pontuacao = $id_Pontuacao;
-    }
-
-    function setConteudo($conteudo) {
-        $this->conteudo = $conteudo;
-    }
-
-    function setId_Agente($id_Agente) {
-        $this->id_Agente = $id_Agente;
-    }
-
-    function setId_Publicacao($id_Publicacao) {
-        $this->id_Publicacao = $id_Publicacao;
-    }
-
-        public function cadastrar() {
-        $sql = "INSERT INTO $this->tabela (conteudo,id_Agente,id_Publicacao) VALUES (:conteudo,:id_Agente,:id_Publicacao)";
-        $stmt = Conexao::prepare($sql);
-        $stmt->bindParam(':descricao', $this->conteudo);
-        $stmt->bindParam(':preco', $this->id_Agente);
-        $stmt->bindParam(':autor', $this->id_Publicacao);
-        return $stmt->execute();
-    }
-
-    public function editar($id) {
-        
-    }
+    
+   
 
 }

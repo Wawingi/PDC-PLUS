@@ -25,7 +25,7 @@ require_once '../../Controller/Autenticacao.php';
         <?php
             //require_once '../../Controller/PublicacaoController.php';
             //require_once '../../Controller/AgenteController.php';
-            require_once '../../Controller/ProdutoController.php';
+            require_once '../../Controller/BaixarController.php';
         ?>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
@@ -66,6 +66,19 @@ require_once '../../Controller/Autenticacao.php';
                                 </button>
                             </div>
                         <?php } ?>
+                        
+                        <!-- Alerta de pagamentos -->
+                        <?php
+                            $info1 = base64_decode(filter_input(INPUT_GET,'info1'));                                                       
+                            if($info1!=null){
+                        ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Alerta!</strong> <?php echo $info1 ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <?php } ?>
                          
                         <div class="row">
                             <div class="col-lg-12">
@@ -82,27 +95,29 @@ require_once '../../Controller/Autenticacao.php';
                                             <div class="editing-info">
                                                 <h5 class="f-title"><i class="ti-info-alt"></i> Efectuar Pagamento</h5>
 
-                                                <form method="post" enctype="multipart/form-data">
+                                                <form method="post">
                                                     <div class="form-group">	
-                                                        <input type="text" name="autor" required="required"/>
+                                                        <input type="text" name="nome" required="required"/>
                                                         <label class="control-label" for="input">Nome Completo </label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="text" name="autor" required="required"/>
+                                                        <input type="text" name="conta" required="required"/>
                                                         <label class="control-label" for="input">Número da Conta </label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="number" name="preco" required="required"/>
+                                                        <input type="password" name="codigo" required="required"/>
                                                         <label class="control-label" for="input">Chave Secreta</label><i class="mtrl-select"></i>
                                                     </div>
-                                                    
+                                                                                                   
                                                     <div class="form-group">	
-                                                        <input type="hidden" name="operacao" value="registar_produto" required="required"/>
+                                                        <input type="hidden" name="preco" value="<?php echo filter_input(INPUT_GET, 'preco') ?>" required="required"/>
+                                                        <input type="hidden" name="conteudo" value="<?php echo filter_input(INPUT_GET, 'conteudo') ?>" required="required"/>
+                                                        <input type="hidden" name="operacao" value="efectuar_pagamento" required="required"/>
                                                     </div>
                                                     	
                                                     <div class="submit-btns">
-                                                        <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="submit" class="mtr-btn"><span>Cadastrar</span></button>
+                                                        <a href="../dashboard/"><button type="button" class="mtr-btn"><span>Cancelar</span></button></a>
+                                                        <button type="submit" class="mtr-btn"><span>Enviar</span></button>
                                                     </div>
                                                 </form>
                                             </div>

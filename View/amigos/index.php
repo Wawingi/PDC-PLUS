@@ -104,8 +104,8 @@ require_once '../../Controller/Autenticacao.php';
                                                                        
                                                                         <h4><a href="#" title=""><?php echo $valor->nome ?></a></h4>
                                                                         <span><?php echo $valor->cidade ?></span>
-                                                                        <?php echo "<a href='../perfil/?acao=".'verPerfil'."&id=".$valor->id."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; ?>
-                                                                        <?php echo "<a style='background-color: red' href='pesquisarAmigo.php?acao=".'cancelarAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."' title='' class='add-butn' data-ripple=''>Cancelar</a>"; ?>
+                                                                        <?php echo "<a href='../perfil/?acao=".'verPerfil'."&id=".base64_encode($valor->id_agente)."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; ?>
+                                                                        <?php echo "<a style='background-color: red' href='pesquisarAmigo.php?acao=".'cancelarAmigo'."&idAgente1=".base64_encode($_SESSION['agente']->id)."&idAgente2=".base64_encode($valor->id_agente)."' title='' class='add-butn' data-ripple=''>Cancelar</a>"; ?>
                                                                     </div>
                                                                 </div>                                                                        
                                                             </li>

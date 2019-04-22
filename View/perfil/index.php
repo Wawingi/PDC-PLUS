@@ -23,8 +23,9 @@ require_once '../../Controller/Autenticacao.php';
     </head>
     <body>
         <?php
-        require_once '../../Controller/PublicacaoController.php';
-        require_once '../../Controller/AgenteController.php';
+            require_once '../../Controller/PublicacaoController.php';
+            require_once '../../Controller/AgenteController.php';
+            require_once '../../Controller/PontuacaoController.php';
         ?>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
@@ -135,15 +136,18 @@ require_once '../../Controller/Autenticacao.php';
                                                                 <span>publicado: <?php echo $valor->data; ?></span>
                                                             </div>
                                                             <div class="post-meta">
-                                                                <a class="strip" href="../Assets/images/upload/<?php echo $valor->midia; ?>" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
-                                                                    <img src="../Assets/images/upload/<?php echo $valor->midia; ?>"  alt=""
-                                                                    <?php if (!empty($valor->midia)) echo 'style="height:334px; width:744px;"'; ?>
-                                                                         >                                                         </a>
                                                                 <div class="description">
                                                                     <p>
                                                                         <?php echo $valor->conteudo; ?>
                                                                     </p>
                                                                 </div>
+                                                                
+                                                                <a class="strip" href="../Assets/images/upload/<?php echo $valor->midia; ?>" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                                                    <img src="../Assets/images/upload/<?php echo $valor->midia; ?>"  alt=""
+                                                                    <?php if (!empty($valor->midia)) echo 'style="height:334px; width:744px;"'; ?>
+                                                                         >                                                         
+                                                                </a>
+                                                             
                                                                 <div class="we-video-info">
                                                                     <ul>
                                                                         <li>
@@ -154,17 +158,15 @@ require_once '../../Controller/Autenticacao.php';
                                                                         </li>
                                                                         <li>
                                                                             <span class="like" data-toggle="tooltip" title="Gostos">
-                                                                                <i class="ti-heart"></i>
-                                                                                <ins>2.2k</ins>
+                                                                                <?php echo "<a href='index.php?operacao=". base64_encode('gostar_perfil')."&idPub=".base64_encode($valor->id). "' class='ti-heart'></a>" ?>
+                                                                                <ins>
+                                                                                <?php 
+                                                                                    $qtd = PontuacaoModel::contGosto($valor->id);
+                                                                                    echo $qtd[0]->cont;
+                                                                                ?>
+                                                                                </ins>
                                                                             </span>
                                                                         </li>
-                                                                        <li>
-                                                                            <span class="dislike" data-toggle="tooltip" title="Não gostos">
-                                                                                <i class="ti-heart-broken"></i>
-                                                                                <ins>200</ins>
-                                                                            </span>
-                                                                        </li>
-
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -221,51 +223,13 @@ require_once '../../Controller/Autenticacao.php';
                                     <?php } else { ?>
                                         <div class="col-lg-6">
                                         <div class="loadMore">
-                                            <div class="central-meta item">
-                                                <div class="new-postbox">
-                                                    <figure>
-                                                        <img src="../Assets/images/upload/<?php echo $agentePesquisado[0]->foto; ?>" style="height:60px; width:60px;" alt="">
-                                                    </figure>
-                                                    <?php ?>
-                                                    <div class="newpst-input">
-                                                        <form method="post" enctype='multipart/form-data'>
-                                                            <textarea rows="2" name="conteudo" required="" placeholder="Escreva aqui a sua publicação!!! "></textarea>
-                                                            <div class="attachments">
-                                                                <ul>
-                                                                    <li>
-                                                                        <select class="custom-select mt-3" name="permissao">
-                                                                            <option selected>Publico</option>
-                                                                            <option>Privado</option>
-                                                                        </select>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-image"></i>
-                                                                        <label class="fileContainer">
-                                                                            <input type="file" name="imagem">
-                                                                        </label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-video-camera"></i>
-                                                                        <label class="fileContainer">
-                                                                            <input type="file" name="video">
-                                                                        </label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="hidden" value="<?php echo $agentePesquisado[0]->id; ?>" name="id_Agente">
-                                                                        <input type="hidden" value="publicar" name="operacao">
-                                                                        <button type="submit">Publicar</button>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div><!-- add post new box -->
+                                            
 
                                             <?php
-                                            $publicacao = new PublicacaoModel();
-                                            foreach ($publicacao->findPublicacaoAgente($agentePesquisado[0]->id) as $valor):
-                                                ?>
+                                                $publicacao = new PublicacaoModel();
+                                                foreach ($publicacao->findPublicacaoAgente($agentePesquisado[0]->id) as $valor):
+                                                if($valor->permissao != 'Privado'){
+                                            ?>
                                                 <div class="central-meta item">
                                                     <div class="user-post">
                                                         <div class="friend-info">
@@ -296,17 +260,15 @@ require_once '../../Controller/Autenticacao.php';
                                                                         </li>
                                                                         <li>
                                                                             <span class="like" data-toggle="tooltip" title="Gostos">
-                                                                                <i class="ti-heart"></i>
-                                                                                <ins>2.2k</ins>
+                                                                                <?php echo "<a href='index.php?operacao=". base64_encode('gostar')."&idPub=".base64_encode($valor->id). "' class='ti-heart'></a>" ?>
+                                                                                <ins>
+                                                                                <?php 
+                                                                                    $qtd = PontuacaoModel::contGosto($valor->id);
+                                                                                    echo $qtd[0]->cont;
+                                                                                ?>
+                                                                                </ins>
                                                                             </span>
                                                                         </li>
-                                                                        <li>
-                                                                            <span class="dislike" data-toggle="tooltip" title="Não gostos">
-                                                                                <i class="ti-heart-broken"></i>
-                                                                                <ins>200</ins>
-                                                                            </span>
-                                                                        </li>
-
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -357,7 +319,7 @@ require_once '../../Controller/Autenticacao.php';
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php endforeach; ?>
+                                                <?php } endforeach; ?>
                                         </div> 
                                     </div>
                                     <?php } ?>
@@ -393,69 +355,7 @@ require_once '../../Controller/Autenticacao.php';
                 </div>
             </div>
         </div>
-        <div class="side-panel">
-            <h4 class="panel-title">General Setting</h4>
-            <form method="post">
-                <div class="setting-row">
-                    <span>use night mode</span>
-                    <input type="checkbox" id="nightmode1"/>
-                    <label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Notifications</span>
-                    <input type="checkbox" id="switch22" />
-                    <label for="switch22" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Notification sound</span>
-                    <input type="checkbox" id="switch33" />
-                    <label for="switch33" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>My profile</span>
-                    <input type="checkbox" id="switch44" />
-                    <label for="switch44" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Show profile</span>
-                    <input type="checkbox" id="switch55" />
-                    <label for="switch55" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-            </form>
-            <h4 class="panel-title">Account Setting</h4>
-            <form method="post">
-                <div class="setting-row">
-                    <span>Sub users</span>
-                    <input type="checkbox" id="switch66" />
-                    <label for="switch66" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>personal account</span>
-                    <input type="checkbox" id="switch77" />
-                    <label for="switch77" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Business account</span>
-                    <input type="checkbox" id="switch88" />
-                    <label for="switch88" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Show me online</span>
-                    <input type="checkbox" id="switch99" />
-                    <label for="switch99" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Delete history</span>
-                    <input type="checkbox" id="switch101" />
-                    <label for="switch101" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-                <div class="setting-row">
-                    <span>Expose author name</span>
-                    <input type="checkbox" id="switch111" />
-                    <label for="switch111" data-on-label="ON" data-off-label="OFF"></label>
-                </div>
-            </form>
-        </div><!-- side panel -->
+        
         <script src="../Assets/js/main.min.js"></script>
         <script src="../Assets/js/script.js"></script>
     </body>

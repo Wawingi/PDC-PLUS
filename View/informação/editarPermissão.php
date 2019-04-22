@@ -23,7 +23,7 @@ function __autoload($class_nome) {
     <body>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
-
+            <?php require_once '../../Controller/TrocapermissaoController.php'; ?>
             <div class="responsive-header">
                 <div class="mh-head first Sticky">
                     <span class="mh-btns-left">
@@ -120,10 +120,7 @@ function __autoload($class_nome) {
             <section>
                 <div class="feature-photo">
                     <figure><img src="../Assets/images/resources/timeline-1.jpg" alt=""></figure>
-                    <div class="add-btn">
-                        <span>1205 Amigos</span>
-                        <a href="time-line.html#" title="" data-ripple="">Adicionar amigo</a>
-                    </div>
+                    
                     <form class="edit-phto">
                         <i class="fa fa-camera-retro"></i>
                         <label class="fileContainer">
@@ -188,26 +185,27 @@ function __autoload($class_nome) {
                                                     <div class="form-radio">
                                                         <div class="radio">
                                                             <label>
-                                                                <input type="radio" checked="checked" name="radio"><i class="check-box"></i>Publico
+                                                                <input type="radio"  name="permissao" value="Publico"><i class="check-box"></i>Publico
                                                             </label>
                                                         </div>
                                                         <div class="radio">
                                                             <label>
-                                                                <input type="radio" name="radio"><i class="check-box"></i>Privado
+                                                                <input type="radio" name="permissao" value="Privado"><i class="check-box"></i>Privado
                                                             </label>
                                                         </div>
-                                                                                                                <div class="radio">
+                                                        <div class="radio">
                                                             <label>
-                                                                <input type="radio" name="radio"><i class="check-box"></i>Limitado
+                                                                <input type="radio" name="permissao" value="Limitado"><i class="check-box"></i>Limitado
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    
+                                                     <input type="hidden" name="operacao" value="alterar_permissao" required="required"/>
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
+                                                                                              
                                             </div>
                                         </div>	
                                     </div>

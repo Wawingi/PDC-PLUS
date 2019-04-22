@@ -12,6 +12,16 @@ if ($op == 'registar_produto') {
     $conteudonome = pathinfo($_FILES['conteudo']['name'],PATHINFO_FILENAME);
     $id_Agente = $_SESSION['agente']->id;
     
+    //Função que cadastra palavra com espaço para enviar no web service
+    $autor = str_replace(' ', '_', $autor);
+    echo $autor.'<br>';
+    
+    $titulo = str_replace(' ', '_', $titulo);
+    echo $titulo.'<br>';
+    
+    $conteudonome = str_replace(' ', '_', $conteudonome);
+    echo $conteudonome;
+    
     
     //Inicio do Upload do ficheiro
     $formatos = array("jpg","png","gif","pdf","mp3");
@@ -26,6 +36,7 @@ if ($op == 'registar_produto') {
        
         if(move_uploaded_file($temp, $pasta.$novonome)){   
             echo "Upload Efectuado...";
+            header("Location:../../View/loja/?info=".$info="1");
         } else {
             echo "Erro ao fazer Upload...";
         }
@@ -41,11 +52,10 @@ if ($op == 'registar_produto') {
         $json = file_get_contents($url);
             
         echo $json;    
-        
     }
     
 } else {
-    $url = "http://localhost:8080/Largacaixa/webresources/produto/Produto/pegar/";
+    /*$url = "http://localhost:8080/Largacaixa/webresources/produto/Produto/pegar/".$id_Ag;
     $json = file_get_contents($url);
-    $produtos = json_decode($json);
+    $produtos = json_decode($json);*/
 }

@@ -132,7 +132,7 @@ require_once '../../Controller/Autenticacao.php';
                                                     </div>
                                                     	
                                                     <div class="submit-btns">
-                                                        <button type="button" class="mtr-btn"><span>Cancelar</span></button>
+                                                        <a href="index.php"><button type="button" class="mtr-btn"><span>Cancelar</span></button></a>
                                                         <button type="submit" class="mtr-btn"><span>Cadastrar</span></button>
                                                     </div>
                                                 </form>

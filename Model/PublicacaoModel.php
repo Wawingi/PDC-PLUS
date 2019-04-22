@@ -12,21 +12,23 @@ class PublicacaoModel extends ActiveRecord\Model {
                 WHERE p.id_Agente=ag.id_Agente ORDER BY `data` DESC";
         return PublicacaoModel::find_by_sql($sql);
     }
-
+    
+    //Publicações de todos agentes
     public function findAllPublicacaoAmigos() {
-      $sql = "SELECT id_publicacao,conteudo,data,nome,midia,ag.foto
-              FROM publicacao p, agente ag
-              WHERE p.id_Agente=ag.id_Agente ORDER BY `data` DESC";
-      return PublicacaoModel::find_by_sql($sql);
-
+        $sql = "SELECT id_publicacao,conteudo,data,nome,midia,ag.foto,p.permissao,p.id_agente
+                FROM publicacao p, agente ag
+                WHERE p.id_Agente=ag.id_Agente ORDER BY `data` DESC";
+        return PublicacaoModel::find_by_sql($sql);
     }
-
+    
+    //Publicações de um determinado agente
     public function findPublicacaoAgente($id_agente) {
-        $sql = "SELECT id_publicacao,conteudo,data,nome,midia,ag.foto
+        $sql = "SELECT id_publicacao,conteudo,data,nome,midia,ag.foto,p.permissao
                 FROM publicacao p, agente ag
                 WHERE p.id_Agente=ag.id_Agente and ag.id_agente= :id_agente ORDER BY `data` DESC";
         return PublicacaoModel::find_by_sql($sql, ['id_agente' => $id_agente]);
     }
+    
     public function comentariosPublicacao($id_publicacao) {
       $sql = "SELECT c.conteudo, c.data, a.nome, a.foto
       FROM comentario c,agente a

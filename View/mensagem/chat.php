@@ -71,7 +71,7 @@ function __autoload($class_nome) {
                                                                 <?php
                                                                     $nomeamigo=filter_input(INPUT_GET, 'nome');
                                                                     $fotoamigo=filter_input(INPUT_GET, 'foto');
-                                                                    $idamigo2=filter_input(INPUT_GET, 'id');
+                                                                    $idamigo2= base64_decode(filter_input(INPUT_GET, 'id'));
                                                                                               
                                                                     foreach (ChatModel::chatAmigos($_SESSION['agente']->id,$idamigo2) as $dado):
                                                                 ?>
@@ -85,7 +85,7 @@ function __autoload($class_nome) {
                                                                                 <h5><a href="time-line.html" title=""><?php echo $_SESSION['agente']->nome; ?></a></h5>
                                                                                 <span><?php echo $dado->data; ?></span>        
                                                                             </div>
-                                                                            <p style="color: black"><?php echo $dado->conteudo; ?></p>
+                                                                            <p style="color: black"><?php echo base64_decode($dado->conteudo); ?></p>
                                                                         </div>
                                                                         <?php }else{ ?>
                                                                         <div class="comet-avatar">
@@ -96,7 +96,7 @@ function __autoload($class_nome) {
                                                                                 <h5><a href="time-line.html" title=""><?php echo $nomeamigo; ?></a></h5>
                                                                                 <span><?php echo $dado->data; ?></span>        
                                                                             </div>
-                                                                            <p style="color: black"><?php echo $dado->conteudo; ?></p>
+                                                                            <p style="color: black"><?php echo base64_decode($dado->conteudo); ?></p>
                                                                         </div>                                                                                                                                              
                                                                         <?php } ?>
                                                                     </li>
@@ -112,9 +112,9 @@ function __autoload($class_nome) {
                                                                             <div class="add-smiles">
                                                                                 <!--<button><span style="color: blue"  class="fa fa-send"  title="Comentar"></span></button>-->
                                                                                 <button style="color: blue; bottom: -5px" type="submit" name="registar" class="fa fa-send"/>
-                                                                                <input type="hidden" value="comentar" name="operacao">
+                                                                                <input type="hidden" value="mensagem" name="operacao">
                                                                                 <input type="hidden" value="<?php echo $_SESSION['agente']->id; ?>" name="id_agente1">
-                                                                                <input type="hidden" value="<?php echo filter_input(INPUT_GET, "id"); ?>" name="id_agente2">
+                                                                                <input type="hidden" value="<?php echo base64_decode(filter_input(INPUT_GET, "id")); ?>" name="id_agente2">
                                                                             </div>
                                                                         </form>
                                                                     </div>

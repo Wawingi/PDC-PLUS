@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
         <select name="pais">
-            <option value="country" selected>País</option>
+            <option value="pais" selected>País</option>
             <option value="AFG">Afghanistan</option>
             <option value="ALA">Ƭand Islands</option>
             <option value="ALB">Albania</option>

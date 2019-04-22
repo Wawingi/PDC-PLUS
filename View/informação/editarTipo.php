@@ -23,7 +23,7 @@ function __autoload($class_nome) {
     <body>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
-
+        <?php require_once '../../Controller/TrocatipoController.php'; ?>
             <div class="responsive-header">
                 <div class="mh-head first Sticky">
                     <span class="mh-btns-left">
@@ -188,20 +188,20 @@ function __autoload($class_nome) {
                                                     <div class="form-radio">
                                                         <div class="radio">
                                                             <label>
-                                                                <input type="radio" checked="checked" name="radio"><i class="check-box"></i>Individual
+                                                                <input type="radio" name="tipo" value="Individual"><i class="check-box"></i>Individual
                                                             </label>
                                                         </div>
                                                         <div class="radio">
                                                             <label>
-                                                                <input type="radio" name="radio"><i class="check-box"></i>Organizacional
+                                                                <input type="radio" name="tipo" value="Organizacional"><i class="check-box"></i>Organizacional
                                                             </label>
                                                         </div>
                            
                                                     </div>
-                                                    
+                                                     <input type="hidden" name="operacao" value="alterar_tipo" required="required"/>
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
                                             </div>

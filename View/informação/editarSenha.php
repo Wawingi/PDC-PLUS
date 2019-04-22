@@ -21,6 +21,8 @@ function __autoload($class_nome) {
         <link rel="stylesheet" href="../Assets/css/responsive.css">
     </head>
     <body>
+        
+        <?php require_once '../../Controller/TrocasenhaController.php'; ?>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
 
@@ -121,10 +123,7 @@ function __autoload($class_nome) {
             <section>
                 <div class="feature-photo">
                     <figure><img src="../Assets/images/resources/timeline-1.jpg" alt=""></figure>
-                    <div class="add-btn">
-                        <span>1205 Amigos</span>
-                        <a href="time-line.html#" title="" data-ripple="">Adicionar amigo</a>
-                    </div>
+                    
                     <form class="edit-phto">
                         <i class="fa fa-camera-retro"></i>
                         <label class="fileContainer">
@@ -161,6 +160,17 @@ function __autoload($class_nome) {
             <section>
                 <div class="gap gray-bg">
                     <div class="container-fluid">
+                        <?php
+                          $info = base64_decode(filter_input(INPUT_GET, 'info'));
+                          if ($info != null) {
+                        ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Alerta!</strong> <?php echo $info ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <?php } ?>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="row" id="page-contents">
@@ -187,21 +197,22 @@ function __autoload($class_nome) {
 
                                                 <form method="post">
                                                     <div class="form-group">	
-                                                        <input type="password" id="input" required="required"/>
+                                                        <input type="password" name="senha_antiga" required="required"/>
                                                         <label class="control-label" for="input">Senha Antiga</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="password" required="required"/>
+                                                        <input type="password" name="senha_nova" required="required"/>
                                                         <label class="control-label" for="input">Senha Nova</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="password" required="required"/>
+                                                        <input type="password" name="senha_nova_confirmar" required="required"/>
                                                         <label class="control-label" for="input">Confirmar a Senha</label><i class="mtrl-select"></i>
                                                     </div>
-                                                    
+                                                    <input type="hidden" name="operacao" value="alterar_senha" required="required"/>
+                            
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
                                             </div>

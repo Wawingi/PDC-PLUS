@@ -53,7 +53,7 @@ function __autoload($class_nome) {
                                         <aside class="sidebar static">
                                             <!-- Inicio do Sidebar -->
                                             <?php
-                                            require_once '../includes/sidebar.php';
+                                                require_once '../includes/sidebar.php';
                                             ?>
                                             <!-- Fim do Sidebar -->
 
@@ -68,8 +68,8 @@ function __autoload($class_nome) {
                                                     <li class="nav-item"><a class="active" href="timeline-friends.html#frends" data-toggle="tab">Registos Encontrados: </a> 
                                                         <span>
                                                             <?php
-                                                                $ag = base64_decode(filter_input(INPUT_GET, 'ag'));
-                                                                echo count($agente->all(array('conditions' => array("nome LIKE '%$ag%'"))));
+                                                                //$ag = base64_decode(filter_input(INPUT_GET, 'ag'));
+                                                                //echo count($agente->all(array('conditions' => array("nome LIKE '%$ag%'"))));
                                                             ?>
                                                         </span>
                                                     </li>
@@ -80,7 +80,7 @@ function __autoload($class_nome) {
                                                         <?php
                                                             $pegaAgente = base64_decode(filter_input(INPUT_GET, 'ag'));
                                                             
-                                                            foreach ($agente->all(array('conditions' => array("nome LIKE '%$pegaAgente%'"))) as $valor):
+                                                            foreach ($agente->all(array('conditions' => array("permissao='publico' AND nome LIKE '%$pegaAgente%'"))) as $valor):
                                                                 if($valor->email != $_SESSION['agente']->email){
                                                         ?>
                                                         <ul class="nearby-contct">
@@ -95,18 +95,18 @@ function __autoload($class_nome) {
                                                                         <span><?php echo $valor->cidade ?></span>
                                                                         <?php 
                                                                             if($valor->tipo=='Individual'){
-                                                                                echo "<a href='../perfil/?acao=".'verPerfil'."&id=".$valor->id."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
+                                                                                echo "<a href='../perfil/?acao=".'verPerfil'."&id=".base64_encode($valor->id)."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
                                                                             } else {
-                                                                                echo "<a href='../loja/?acao=".'verPerfil'."&id=".$valor->id."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
+                                                                                echo "<a href='../loja/?acao=".'verPerfil'."&id=".base64_encode($valor->id)."&tipo=".$valor->tipo."' title='' class='add-butn more-action' data-ripple=''>Ver Perfil</a>"; 
                                                                             }
                                                                         ?>
                                                                         <?php 
                                                                             $amizade = new AmizadeModel();
                                                                             $pegaEstado=$amizade->all(array('conditions' => array('idagente1 = ? AND idagente2 = ?',$_SESSION['agente']->id , $valor->id)));
                                                                             if($pegaEstado){ 
-                                                                               echo "<a style='background-color: red' href='pesquisarAmigo.php?acao=".'cancelarAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."' title='' class='add-butn' data-ripple=''>Cancelar</a>";
+                                                                               echo "<a style='background-color: red' href='pesquisarAmigo.php?acao=".'cancelarAmigo'."&idAgente1=".base64_encode($_SESSION['agente']->id)."&idAgente2=".base64_encode($valor->id)."' title='' class='add-butn' data-ripple=''>Cancelar</a>";
                                                                             } else {
-                                                                               echo "<a href='pesquisarAmigo.php?acao=".'addAmigo'."&idAgente1=".$_SESSION['agente']->id."&idAgente2=".$valor->id."&tipo=".$valor->tipo. "' title='' class='add-butn' data-ripple=''>Adicionar</a>";
+                                                                               echo "<a href='pesquisarAmigo.php?acao=".'addAmigo'."&idAgente1=".base64_encode($_SESSION['agente']->id)."&idAgente2=".base64_encode($valor->id)."&tipo=".$valor->tipo. "' title='' class='add-butn' data-ripple=''>Adicionar</a>";
                                                                             }
                                                                         ?>
                                                                     </div>

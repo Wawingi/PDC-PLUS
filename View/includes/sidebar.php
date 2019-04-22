@@ -7,8 +7,8 @@
             <a href="../perfil/" title="">Perfil</a>
         </li>
         <li>
-            <i class="ti-files"></i>
-            <a href="fav-page.html" title="">Minhas Páginas</a>
+            <i class=" ti-hand-open"></i>
+            <a href="../amigos/sugestaoAmigo.php" title="">Sugestão de Amizade</a>
         </li>
         <li>
             <i class="ti-user"></i>

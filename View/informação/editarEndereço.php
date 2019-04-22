@@ -23,7 +23,7 @@ function __autoload($class_nome) {
     <body>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
-
+            <?php require_once '../../Controller/TrocaenderecoController.php'; ?>
             <div class="responsive-header">
                 <div class="mh-head first Sticky">
                     <span class="mh-btns-left">
@@ -186,14 +186,13 @@ function __autoload($class_nome) {
 
                                                 <form method="post">
                                                     <div class="form-group">	
-                                                        <input type="text" required="required"/>
+                                                        <input type="text" name="cidade" value="<?php echo $contacto->cidade ; ?>"required="required"/>
                                                         <label class="control-label" for="input">Cidade</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <select>
-                                                            <option value="PAIS" selected="">País</option>
+                                                        <select name="pais">
                                                             <option value="AFG">Afghanistan</option>
-                                                            <option value="ALA">Ƭand Islands</option>
+                                                            <option value="ALA">Æ¬and Islands</option>
                                                             <option value="ALB">Albania</option>
                                                             <option value="DZA">Algeria</option>
                                                             <option value="ASM">American Samoa</option>
@@ -246,10 +245,10 @@ function __autoload($class_nome) {
                                                             <option value="COD">Congo, the Democratic Republic of the</option>
                                                             <option value="COK">Cook Islands</option>
                                                             <option value="CRI">Costa Rica</option>
-                                                            <option value="CIV">C𴥠d'Ivoire</option>
+                                                            <option value="CIV">Cð´¥ d'Ivoire</option>
                                                             <option value="HRV">Croatia</option>
                                                             <option value="CUB">Cuba</option>
-                                                            <option value="CUW">Cura袯</option>
+                                                            <option value="CUW">Curaè¢¯</option>
                                                             <option value="CYP">Cyprus</option>
                                                             <option value="CZE">Czech Republic</option>
                                                             <option value="DNK">Denmark</option>
@@ -372,11 +371,11 @@ function __autoload($class_nome) {
                                                             <option value="PRT">Portugal</option>
                                                             <option value="PRI">Puerto Rico</option>
                                                             <option value="QAT">Qatar</option>
-                                                            <option value="REU">R궮ion</option>
+                                                            <option value="REU">Rê¶®ion</option>
                                                             <option value="ROU">Romania</option>
                                                             <option value="RUS">Russian Federation</option>
                                                             <option value="RWA">Rwanda</option>
-                                                            <option value="BLM">Saint Barthꭥmy</option>
+                                                            <option value="BLM">Saint Barthê­¥my</option>
                                                             <option value="SHN">Saint Helena, Ascension and Tristan da Cunha</option>
                                                             <option value="KNA">Saint Kitts and Nevis</option>
                                                             <option value="LCA">Saint Lucia</option>
@@ -443,10 +442,11 @@ function __autoload($class_nome) {
                                                             <option value="ZWE">Zimbabwe</option>
                                                         </select>
                                                     </div>
+                                                    <input type="hidden" name="operacao" value="alterar_endereco" required="required"/>
 
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
                                             </div>

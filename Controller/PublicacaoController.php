@@ -4,8 +4,7 @@
 $op = filter_input(INPUT_POST, 'operacao');
 
 $publicacao = new PublicacaoModel();
-
-
+$auditoria = new AuditoriaModel();
 
 if ($op == 'publicar') {
 
@@ -23,8 +22,11 @@ if ($op == 'publicar') {
             $publicacao->permissao = $permissao;
             $publicacao->data = date('Y-m-d\TH:i:s');
             $publicacao->id_agente = $id_Agente;
-            $publicacao->save();
-            echo 'Salvo com sucesso';
+            
+            if($publicacao->save()){
+                echo 'Salvo com sucesso';
+                Header("Location: ../../View/perfil/");
+            }
           }else{
 
             $upload = new UploadModel($imagem, 1000, 900, $_SERVER['DOCUMENT_ROOT'] . "/pdc_plus/View/Assets/images/upload/");
@@ -50,10 +52,16 @@ if ($op == 'publicar') {
             $multimedia->conteudo = $nome_arquivo;
             $multimedia->id_publicacao = $publicacao->id;
             $multimedia->save();
-            header("Location: ../dashboard/");
-
-          }
-
+            
+            //Registo de auditoria
+                $auditoria->evento = 'Um agente fez uma publicação';
+                $auditoria->agente = $_SESSION['agente']->nome;
+                $auditoria->data = date('Y-m-d\TH:i:s');
+                
+                $auditoria->save();
+                
+                header("Location: ../dashboard/");
+            }
           }
         } catch (Exception $exc) {
             echo $exc->getMessage()."[Erro na Publicação controller]";
@@ -72,8 +80,15 @@ if($op=='comentar'){
     $comentario->data= date('Y-m-d\TH:i:s');
     $comentario->id_agente=$id_agente ;
     $comentario->id_publicacao= $publicacao;
-    $comentario->save();
+    if($comentario->save()){
+        //Registo de auditoria
+            $auditoria->evento = 'Um agente comentou uma publicação';
+            $auditoria->agente = $_SESSION['agente']->nome;
+            $auditoria->data = date('Y-m-d\TH:i:s');
+                
+            $auditoria->save();
+    }
   }else {
-    echo "Priencha os campos!";
+    echo "Preencha os campos!";
   }
 }

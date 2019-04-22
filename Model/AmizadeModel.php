@@ -16,7 +16,7 @@ class AmizadeModel extends ActiveRecord\Model {
     }
     
     public function findAmigos($idagente1) {
-        $sql = "SELECT am.idAgente1,am.idAgente2,ag.nome,ag.cidade,ag.foto,ag.email,ag.id_agente
+        $sql = "SELECT am.idAgente1,am.idAgente2,ag.nome,ag.cidade,ag.foto,ag.email,ag.id_agente,ag.tipo
                 FROM amizade am,agente ag 
                 WHERE ag.tipo='individual' AND am.estado='amigos' AND ag.id_Agente=am.idAgente1 AND am.idAgente2= :idagente1 OR ag.id_Agente=am.idAgente2 AND am.idAgente1= :idagente1";
         return AmizadeModel::find_by_sql($sql, ['idagente1' => $idagente1]);

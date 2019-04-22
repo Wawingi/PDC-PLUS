@@ -23,7 +23,8 @@ function __autoload($class_nome) {
     <body>
         <!--<div class="se-pre-con"></div>-->
         <div class="theme-layout">
-
+            <?php require_once '../../Controller/TrocacontactoController.php'; ?>
+            
             <div class="responsive-header">
                 <div class="mh-head first Sticky">
                     <span class="mh-btns-left">
@@ -120,10 +121,6 @@ function __autoload($class_nome) {
             <section>
                 <div class="feature-photo">
                     <figure><img src="../Assets/images/resources/timeline-1.jpg" alt=""></figure>
-                    <div class="add-btn">
-                        <span>1205 Amigos</span>
-                        <a href="time-line.html#" title="" data-ripple="">Adicionar amigo</a>
-                    </div>
                     <form class="edit-phto">
                         <i class="fa fa-camera-retro"></i>
                         <label class="fileContainer">
@@ -182,23 +179,24 @@ function __autoload($class_nome) {
                                     <div class="col-lg-6">
                                         <div class="central-meta">
                                             <div class="editing-info">
-                                                <h5 class="f-title"><i class="ti-mobile"></i> Editar Contactactos</h5>
-
+                                                <h5 class="f-title"><i class="ti-mobile"></i> Editar Contactos</h5>
+                                                
                                                 <form method="post">
                                                     <div class="form-group">	
-                                                        <input type="email" id="input" required="required"/>
+                                                        <input type="email" name="email" id="input" value="<?php echo $contacto->email ; ?>" required="required"/>
                                                         <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
                                                     </div>
                                                     <div class="form-group">	
-                                                        <input type="text" required="required"/>
+                                                        <input type="text" name="telefone" value="<?php echo $contacto->telefone; ?>" required="required"/>
                                                         <label class="control-label" for="input">Telefone</label><i class="mtrl-select"></i>
                                                     </div>                                                   
-                                                    
+                                                    <input type="hidden" name="operacao" value="alterar_contacto" required="required"/>
                                                     <div class="submit-btns">
                                                         <button type="button" class="mtr-btn"><span>Cancelar</span></button>
-                                                        <button type="button" class="mtr-btn"><span>Actualizar</span></button>
+                                                        <button type="submit" class="mtr-btn"><span>Actualizar</span></button>
                                                     </div>
                                                 </form>
+
                                             </div>
                                         </div>	
                                     </div>

@@ -64,11 +64,7 @@
                 echo $agentePesquisado[0]->capa;
                 ?>" style="height:434px; width:1580px;"alt=""></a>
         </figure>
-        <div class="add-btn">
-
-            <a href="time-line.html#" title="" data-ripple="">Adicionar amigo</a>
-        </div>
-       
+     
         <div class="container-fluid">
             <div class="row merged">
                 <div class="col-lg-2 col-sm-3">

@@ -22,7 +22,8 @@ function __autoload($class_nome) {
     </head>
     <body>
         <?php
-        require_once '../../Controller/PublicacaoController.php';
+            require_once '../../Controller/PublicacaoController.php';
+            require_once '../../Controller/PontuacaoController.php';
         ?>
 
         <!--<div class="se-pre-con"></div>-->
@@ -38,12 +39,25 @@ function __autoload($class_nome) {
 
             <!-- inicio do menubar -->
             <?php
-            require_once '../includes/menubar.php';
+                require_once '../includes/menubar.php';
             ?>
             <!-- FIM do menubar -->       
 
             <section>
                 <div class="gap gray-bg">
+                    <!-- Alerta sucesso -->
+                    <?php
+                    $info1 = base64_decode(filter_input(INPUT_GET, 'info1'));
+                    if ($info1 != null) {
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Sucesso!</strong> <?php echo $info1 ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } ?>
+                   <!-- fim do Alerta sucesso -->
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
@@ -52,7 +66,7 @@ function __autoload($class_nome) {
                                         <aside class="sidebar static">
                                             <!-- Inicio do Sidebar -->
                                             <?php
-                                            require_once '../includes/sidebar.php';
+                                                require_once '../includes/sidebar.php';
                                             ?>
                                             <!-- Fim do Sidebar -->
 
@@ -104,9 +118,10 @@ function __autoload($class_nome) {
                                             </div><!-- add post new box -->
 
                                             <?php
-                                            $publicacao = new PublicacaoModel();
-                                            foreach ($publicacao->findAllPublicacaoAmigos() as $valor):
-                                                ?>
+                                                $publicacao = new PublicacaoModel();
+                                                foreach ($publicacao->findAllPublicacaoAmigos() as $valor):
+                                                    if($valor->permissao != 'Privado'){
+                                            ?>
                                                 <div class="central-meta item">
                                                     <div class="user-post">
                                                         <div class="friend-info">
@@ -118,15 +133,17 @@ function __autoload($class_nome) {
                                                                 <span>publicado: <?php echo $valor->data; ?></span>
                                                             </div>
                                                             <div class="post-meta">
-                                                                <a class="strip" href="../Assets/images/upload/<?php echo $valor->midia; ?>" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
-                                                                    <img src="../Assets/images/upload/<?php echo $valor->midia; ?>"  alt=""
-                                                                    <?php if (!empty($valor->midia)) echo 'style="height:334px; width:744px;"'; ?>
-                                                                         >                                                         </a>
                                                                 <div class="description">
                                                                     <p>
                                                                         <?php echo $valor->conteudo; ?>
                                                                     </p>
                                                                 </div>
+                                                                <a class="strip" href="../Assets/images/upload/<?php echo $valor->midia; ?>" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                                                    <img src="../Assets/images/upload/<?php echo $valor->midia; ?>"  alt=""
+                                                                    <?php if (!empty($valor->midia)) echo 'style="height:334px; width:744px;"'; ?>
+                                                                         >                                                         
+                                                                </a>
+                                                                
                                                                 <div class="we-video-info">
                                                                     <ul>
                                                                         <li>
@@ -137,17 +154,15 @@ function __autoload($class_nome) {
                                                                         </li>
                                                                         <li>
                                                                             <span class="like" data-toggle="tooltip" title="Gostos">
-                                                                                <i class="ti-heart"></i>
-                                                                                <ins>2.2k</ins>
+                                                                                <?php echo "<a href='index.php?operacao=". base64_encode('gostar')."&idPub=".base64_encode($valor->id). "' class='ti-heart'></a>" ?>
+                                                                                <ins>
+                                                                                <?php 
+                                                                                    $qtd = PontuacaoModel::contGosto($valor->id);
+                                                                                    echo $qtd[0]->cont;
+                                                                                ?>
+                                                                                </ins>
                                                                             </span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <span class="dislike" data-toggle="tooltip" title="Não gostos">
-                                                                                <i class="ti-heart-broken"></i>
-                                                                                <ins>200</ins>
-                                                                            </span>
-                                                                        </li>
-
+                                                                        </li>                                                                        
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -198,13 +213,9 @@ function __autoload($class_nome) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php endforeach; ?>
+                                            <?php } endforeach; ?>
                                         </div> 
-
-
                                     </div>
-
-
                                     <!-- Inicio Amigos mensagem -->
                                     <div class="col-lg-3">
                                         <aside class="sidebar static">
